@@ -1,0 +1,33 @@
+PImage testImg;
+
+void setup(){
+  size(900,1600);
+  noStroke();
+  testImg = loadImage(sketchPath("")+"11600.jpg");
+}
+
+void draw(){
+  MakePixcel(testImg, 80, 20);
+}
+
+void MakePixcel(PImage InImg, int PixcelUnit, int LineWidth ){
+  PImage OutImg = InImg;
+  int PixcelFillUnit = PixcelUnit - LineWidth;
+  color LineFillX = color(255, 0, 0);
+  color LineFillY = color(255, 0, 0);
+  for (int line=PixcelUnit; line < OutImg.width; line+=PixcelUnit){
+    fill(LineFillX);
+    rect(line, 0, LineWidth, OutImg.height);
+  }
+  for (int line=PixcelUnit; line < OutImg.height; line+=PixcelUnit){
+    fill(LineFillY);
+    rect(0, line, OutImg.width, LineWidth);
+  }
+  for(int PixcelX=0; PixcelX < OutImg.width; PixcelX+=PixcelUnit){
+    for(int PixcelY=0; PixcelY < OutImg.height; PixcelY+=PixcelUnit){
+      fill(OutImg.get(PixcelX, PixcelY));
+      rect(PixcelX, PixcelY, PixcelFillUnit, PixcelFillUnit);
+    }
+  }
+
+}
