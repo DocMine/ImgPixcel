@@ -1,34 +1,39 @@
-//import processing.video.*;
-import ketai.camera.*;
+import processing.video.*;
+//import ketai.camera.*;
 //PImage testImg;
-//Capture cam;
-KetaiCamera cam;
+Capture cam;
+//KetaiCamera cam;
 
 void setup(){
-  fullScreen();
-  orientation(LANDSCAPE);
-  //size(900,1600);
+  //fullScreen();
+  //orientation(LANDSCAPE);
+  size(1600,1200);
   noStroke();
   //testImg = loadImage(sketchPath("")+"11600.jpg");
-  cam = new KetaiCamera(this, 1080, 1920, 20);
-  //cam = new Capture(this, 900, 1600);
-  delay(1000);
+  //cam = new KetaiCamera(this, 1080, 1920, 20);
+  try{
+  cam = new Capture(this, 1600, 1200);
+  }catch(Exception Err){
+    cam = new Capture(this,1600, 1200, "pipeline:autovideosrc");
+  }
+  //cam = new Capture(this, 1600, 1200, "pipeline: ksvideosrc device-index=0 ! video/x-raw,width=1600,height=1200");
   cam.start();
 }
 
 void draw(){
-  /*if(cam.available()) {
+  if(cam.available()) {
     cam.read();
-  }*/
+    MakePixcel(cam, int(mouseX/100), int(mouseY/100));
+  }
   
-  if (cam != null && cam.isStarted())
+  /*if (cam != null && cam.isStarted())
     //image(cam, width/2, height/2, width, height);
     MakePixcel(cam, 28, 2);
   else
   {
     background(128);
     text("Camera is currently off.", width/2, height/2);
-  }
+  }*/
 }
 
 void onCameraPreviewEvent()
